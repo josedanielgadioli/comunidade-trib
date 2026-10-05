@@ -77,6 +77,8 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | `text-corpo` | 16 / 24 px (1,5) | Corpo |
 | `text-aux` | 14 / 20 px | Texto auxiliar |
 | `text-selo` | 12 / 16 px, 600 | **Só** selos e o contador do sino |
+| `text-[12px]` | 12 / 16 px | Exceção: rótulos da barra de navegação (600 no item ativo) |
+| `text-[11px]` | 11 / 16 px | Exceção: só o rodapé "Protótipo para testes", em `tinta-2` sobre areia (6,26:1) |
 
 ## Espaçamento
 
@@ -100,6 +102,7 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Toast | `components/ui/Toast.tsx` | Fundo branco, texto `tinta`, região `aria-live="polite"`. |
 | Estado vazio | `components/ui/EstadoVazio.tsx` | "Ainda não tem nada por aqui. Que tal começar a conversa?" |
 | Ilustração | `components/ilustracoes/` | Cenas de paisagem em SVG, uma por roteiro (Moto: serra com estrada sinuosa; Religioso: cidade com igreja de duas torres; Fusca: estrada de terra com Fusca e casario) e uma de boas-vindas. Plana, 4 a 6 camadas, céu em gradiente, luz de dia. Cada uma tem `role="img"` e `aria-label` descritivo. Sem pessoas, logos ou textos. O rodapé avisa "Imagens ilustrativas". |
+| Barra de navegação | `components/BarraNavegacao.tsx` | Fixa na base da coluna em todas as telas menos Boas-vindas e Contribuir. Fundo branco, borda superior `borda`, 64 px + `env(safe-area-inset-bottom)`. 5 itens: Início, Explorar (em breve), botão central "+" (56 px, `rosa-acao`, ícone branco, rótulo acessível "Contribuir"), Notificações (com contador) e Perfil (em breve). Ícone 24 px + rótulo 12 px. Ativo: `bordo` 600 com traço de 3 px `rosa` acima do ícone. Inativo: `tinta-2`. Em breve: opacidade de 60%, ponto ao lado do rótulo, `aria-disabled` e toast "Em breve". A opacidade derruba o contraste para 2,91:1, o que a WCAG aceita em componente desabilitado. |
 | Logo | `components/LogoSlot.tsx` | Vazio de propósito. O logo oficial entra aqui; nunca redesenhe o logo. |
 
 ## Ícones

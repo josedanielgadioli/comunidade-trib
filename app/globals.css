@@ -2,11 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Alturas das faixas fixas na base da tela. */
+:root {
+  --area-segura: env(safe-area-inset-bottom, 0px);
+  --altura-barra-nav: calc(64px + var(--area-segura));
+  --altura-rodape: 24px;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
-  /* Campos focados não ficam escondidos atrás da barra do botão e do rodapé fixos. */
+  /* Campos focados não ficam escondidos atrás das faixas fixas (barra, botão e rodapé). */
   scroll-padding-top: 16px;
-  scroll-padding-bottom: 136px;
+  scroll-padding-bottom: calc(136px + var(--area-segura));
 }
 
 body {

@@ -69,7 +69,7 @@ export default function Home() {
     );
 
   return (
-    <main className="flex flex-col gap-6 px-4 pb-24">
+    <main className="flex flex-col gap-6 px-4 pb-[calc(120px+var(--area-segura))]">
       <CabecalhoMarca />
 
       <Link

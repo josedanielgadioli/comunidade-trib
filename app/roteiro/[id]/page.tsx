@@ -89,7 +89,7 @@ function TelaRoteiro() {
       </div>
 
       {/* Conteúdo num cartão branco que sobe 24 px sobre a ilustração. */}
-      <div className="relative -mt-6 flex min-h-[60vh] flex-col gap-6 rounded-t-[24px] bg-branco px-4 pb-24 pt-6">
+      <div className="relative -mt-6 flex min-h-[60vh] flex-col gap-6 rounded-t-[24px] bg-branco px-4 pb-[calc(120px+var(--area-segura))] pt-6">
         <header className="flex flex-col gap-2">
           <div className="flex flex-wrap gap-2">
             {roteiro.curadoria && <Selo variante="curadoria" />}

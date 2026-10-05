@@ -21,7 +21,7 @@ export default function Notificacoes() {
   const destino = (id: string) => roteiros.find((r) => r.id === id)?.destino ?? '';
 
   return (
-    <main className="flex flex-col gap-6 px-4 pb-24">
+    <main className="flex flex-col gap-6 px-4 pb-[calc(120px+var(--area-segura))]">
       <CabecalhoVoltar titulo="Notificações" voltarPara="/comunidade" />
 
       {notificacoes && notificacoes.length === 0 && <EstadoVazio />}

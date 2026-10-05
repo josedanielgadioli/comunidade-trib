@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import { ProvedorApp } from '@/lib/ContextoApp';
 import { ProvedorToast } from '@/components/ui/Toast';
+import { BarraNavegacao } from '@/components/BarraNavegacao';
 import { RodapePrototipo } from '@/components/RodapePrototipo';
 import './globals.css';
 
@@ -22,6 +23,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: '#EDE5DF',
+  // Permite usar env(safe-area-inset-bottom) no iPhone.
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -35,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </div>
             <RodapePrototipo />
+            <BarraNavegacao />
           </ProvedorToast>
         </ProvedorApp>
       </body>
