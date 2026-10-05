@@ -14,12 +14,16 @@ Feito com Next.js (App Router), TypeScript e Tailwind CSS. Mobile-first, numa co
 | T4 | `/contribuir?roteiro=[id]` | Perguntar, dar uma dica ou contar como foi |
 | T5 | `/notificacoes` | Três notificações de exemplo que levam aos roteiros |
 
+No computador (a partir de 1024 px), o protótipo aparece dentro de uma moldura de celular, com um painel ao lado que explica o teste e traz um QR code para abrir no celular. Entre 768 e 1023 px aparece só a moldura.
+
 ## O que é simulado
 
 - **Contribuições:** ficam só no estado do app (React Context) e somem ao recarregar a página.
 - **Nome:** o primeiro nome também fica só no estado. Se a pessoa recarregar e publicar, o formulário pede o nome de novo.
-- **Contador do sino e notificações:** fixos.
-- **"Usar e editar", "Compartilhar" e "Salvar":** só mostram o aviso "Disponível no MVP".
+- **Notificações:** as 3 são de exemplo. Abrir uma marca como lida e diminui o contador da barra; o estado volta ao recarregar.
+- **Salvar:** alterna salvo e não salvo só nesta sessão. **Compartilhar** usa a folha do sistema ou copia o link.
+- **"Usar e editar este roteiro":** só mostra o aviso "Disponível no MVP". **Explorar** e **Perfil**, na barra, mostram "Em breve".
+- **Imagens:** fictícias, geradas por IA, em `public/imagens/`.
 
 ## Estrutura
 

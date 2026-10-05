@@ -116,6 +116,17 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Notificação | `app/notificacoes/page.tsx` | Grupos "Novas" e "Anteriores". Avatar de 40 px (ou ícone do tipo em círculo `rosa-claro`), texto 14 px em `tinta` com o nome em 600, destino e tempo relativo em 12 px `tinta-2` e miniatura de 48 px. Não lida: fundo `dica-fundo` (`tinta` 14,9:1, `tinta-2` 7,1:1) e ponto de 8 px em `rosa`. Tocar marca como lida e diminui o contador da barra. |
 | Logo | `components/LogoSlot.tsx` | Vazio de propósito. O logo oficial entra aqui; nunca redesenhe o logo. |
 
+## Visualização no computador
+
+| Largura | O que aparece |
+|---|---|
+| Até 767 px | O layout do celular, sem moldura. |
+| 768 a 1023 px | Só a moldura de celular, centralizada. |
+| A partir de 1024 px | Painel explicativo à esquerda (até 420 px) e moldura à direita. |
+
+- **Moldura** (`components/MolduraCelular.tsx`): contorno de 10 px em `tinta`, cantos de 40 px, 844 px de altura (ou a altura da janela menos 32 px, se a janela for mais baixa) e rolagem interna. As faixas fixas (barra de navegação, botão principal, rodapé e toasts) ficam presas à moldura, e as telas não mudam por dentro.
+- **Painel** (`components/PainelDesktop.tsx`): "Comunidade Trib" em 14 px/600 `bordo`; título em 32 px/600 `tinta` (exceção de tamanho, só neste painel); texto em 16 px `tinta-2`; bloco "Teste em 5 minutos" num cartão branco; QR code de 120 px em `tinta` sobre branco, apontando para o início do protótipo; e o rodapé do protótipo, que a partir de 1024 px sai da moldura.
+
 ## Ícones
 
 `lucide-react`, traço 1,75, 20 a 24 px. Os ícones dentro de selos usam 16 px, para caber na altura do selo. Ícones grandes de placeholder usam 40 px. Sem emoji na interface.

@@ -9,6 +9,19 @@
   --altura-rodape: 24px;
 }
 
+/* A partir de 1024 px o rodapé sai da moldura (vai para o painel). */
+@media (min-width: 1024px) {
+  :root {
+    --altura-rodape: 0px;
+  }
+}
+
+/* Dentro da moldura, campos focados também não ficam atrás das faixas fixas. */
+[data-rolagem-moldura] {
+  scroll-padding-top: 16px;
+  scroll-padding-bottom: 136px;
+}
+
 /* Em telas estreitas, o rodapé do protótipo quebra em 2 linhas. */
 @media (max-width: 389px) {
   :root {
