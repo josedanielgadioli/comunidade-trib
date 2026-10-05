@@ -15,7 +15,7 @@ export function CabecalhoVoltar({ titulo, voltarPara, acao }: { titulo: string; 
       >
         <ArrowLeft size={24} strokeWidth={1.75} aria-hidden />
       </Link>
-      <h1 className="flex-1 text-tela text-tinta">{titulo}</h1>
+      <h1 className="min-w-0 flex-1 text-tela text-tinta">{titulo}</h1>
       {acao}
     </header>
   );

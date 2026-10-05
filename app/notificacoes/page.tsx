@@ -95,7 +95,7 @@ export default function Notificacoes() {
             <button
               type="button"
               onClick={() => marcarLidas(naoLidas.map((n) => n.id))}
-              className="flex min-h-11 shrink-0 items-center text-aux font-medium text-bordo underline-offset-4 hover:underline focus-visible:underline"
+              className="flex min-h-11 max-w-[8.5rem] items-center text-right text-aux font-medium leading-tight text-bordo underline-offset-4 hover:underline focus-visible:underline"
             >
               Marcar todas como lidas
             </button>
