@@ -32,7 +32,7 @@ export function Abas<T extends string>({ id, rotulo, opcoes, valor, aoMudar }: P
   }
 
   return (
-    <div role="tablist" aria-label={rotulo} className="flex gap-1 overflow-x-auto">
+    <div role="tablist" aria-label={rotulo} className="flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {opcoes.map((o, i) => {
         const selecionada = o.valor === valor;
         return (

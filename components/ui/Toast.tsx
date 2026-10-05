@@ -42,7 +42,7 @@ export function ProvedorToast({ children }: { children: React.ReactNode }) {
         {mensagem && (
           <div
             key={mensagem.id}
-            className="flex items-center gap-2 rounded-cartao border border-borda bg-branco px-4 py-3 text-corpo text-tinta shadow-md motion-safe:animate-[entrar_200ms_ease-out]"
+            className="flex items-center gap-2 rounded-cartao border border-borda bg-branco px-4 py-3 text-corpo text-tinta motion-safe:animate-[entrar_200ms_ease-out]"
           >
             <Icone size={20} strokeWidth={1.75} aria-hidden className="shrink-0 text-verde" />
             <span>{mensagem.texto}</span>

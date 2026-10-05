@@ -4,6 +4,9 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Campos focados não ficam escondidos atrás da barra do botão e do rodapé fixos. */
+  scroll-padding-top: 16px;
+  scroll-padding-bottom: 136px;
 }
 
 body {
