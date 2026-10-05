@@ -98,7 +98,7 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Botão de texto/link | idem (`variante="texto"`) | `bordo`, sublinhado no hover e no foco. |
 | Campo | `components/ui/Campo.tsx` | Fundo branco, borda `borda`, mínimo de 48 px, cantos 12 px, rótulo visível acima. Foco: borda de 2 px `bordo`. Erro: borda `rosa-acao-press` + mensagem em texto abaixo, com ícone. |
 | Cartão | `components/ui/Cartao.tsx` | Fundo branco, borda de 1 px `borda`, cantos 16 px, sem sombra. |
-| Chips e abas | `components/ui/Chips.tsx`, `components/ui/Abas.tsx` | Visual de 40 px, totalmente arredondados, dentro de um alvo de toque de 44 px. Selecionado: fundo `rosa-claro`, texto `tinta` 600. As abas aceitam as setas do teclado. |
+| Chips e abas | `components/ui/Chips.tsx`, `components/ui/Abas.tsx` | Visual de 40 px, totalmente arredondados, dentro de um alvo de toque de 44 px. Selecionado: fundo `rosa-claro`, texto `tinta`. Os chips ficam numa linha só, com rolagem lateral sem barra visível, 8 px entre eles, encostando na borda direita. Podem mostrar uma contagem: nome em 500 (600 no selecionado) e número em 400. As abas usam texto 600 no item selecionado e aceitam as setas do teclado. |
 | Selos | `components/ui/Selo.tsx` | 12 px/600, padding de 4×8 px, cantos de 999 px, sempre ícone + texto. |
 | Toast | `components/ui/Toast.tsx` | Fundo branco, texto `tinta`, região `aria-live="polite"`. |
 | Estado vazio | `components/ui/EstadoVazio.tsx` | "Ainda não tem nada por aqui. Que tal começar a conversa?" |

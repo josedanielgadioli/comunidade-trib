@@ -73,6 +73,13 @@ function TelaRoteiro() {
       return sa - sb || maisNovoPrimeiro(a, b);
     });
 
+  // Contagens dos filtros: comentários de primeiro nível, inclusive os publicados nesta sessão.
+  const primeiroNivel = comentarios.filter((c) => c.respostaA === null);
+  const opcoesFiltro = filtros.map((f) => ({
+    ...f,
+    contagem: f.valor === 'todos' ? primeiroNivel.length : primeiroNivel.filter((c) => c.tipo === f.valor).length,
+  }));
+
   const emBreve = () => mostrarToast('Disponível no MVP');
   const botaoSobreImagem =
     'flex h-11 w-11 items-center justify-center rounded-full bg-branco text-tinta shadow-leve active:bg-dica-fundo';
@@ -148,7 +155,7 @@ function TelaRoteiro() {
             Contribuir neste roteiro
           </BotaoLink>
 
-          <Chips rotulo="Filtrar conversa" opcoes={filtros} valor={filtro} aoMudar={setFiltro} />
+          <Chips rotulo="Filtrar conversa" opcoes={opcoesFiltro} valor={filtro} aoMudar={setFiltro} />
 
           {principais.length ? (
             <ul className="flex flex-col gap-3">

@@ -49,6 +49,10 @@ export default function Home() {
   const contagem = (id: string) => comentarios.filter((c) => c.roteiroId === id).length;
 
   const destaques = visiveis.filter((r) => r.curadoria);
+  const opcoesTribo = chipsTribo.map((c) => ({
+    ...c,
+    contagem: visiveis.filter((r) => c.valor === 'todas' || r.tribo === c.valor).length,
+  }));
   const porTribo = visiveis.filter((r) => tribo === 'todas' || r.tribo === tribo);
   const relatos = comentarios
     .filter((c) => c.tipo === 'relato' && c.respostaA === null && combina(c.roteiroId))
@@ -133,7 +137,7 @@ export default function Home() {
 
           {aba === 'roteiros' && (
             <div className="flex flex-col gap-3">
-              <Chips rotulo="Filtrar por tribo" opcoes={chipsTribo} valor={tribo} aoMudar={setTribo} />
+              <Chips rotulo="Filtrar por tribo" opcoes={opcoesTribo} valor={tribo} aoMudar={setTribo} />
               {porTribo.length ? (
                 <ul className="flex flex-col gap-3">
                   {porTribo.map((r) => (
