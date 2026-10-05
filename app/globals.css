@@ -9,6 +9,13 @@
   --altura-rodape: 24px;
 }
 
+/* Em telas estreitas, o rodapé do protótipo quebra em 2 linhas. */
+@media (max-width: 389px) {
+  :root {
+    --altura-rodape: 32px;
+  }
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   /* Campos focados não ficam escondidos atrás das faixas fixas (barra, botão e rodapé). */

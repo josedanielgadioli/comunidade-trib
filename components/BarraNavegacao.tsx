@@ -63,7 +63,9 @@ function ItemBarra({ item, caminho }: { item: Item; caminho: string }) {
   }
 
   const ativo = item.ativo(caminho);
-  const nomeAcessivel = item.contador ? `${rotulo}, ${item.contador} novas` : undefined;
+  const nomeAcessivel = item.contador
+    ? `${rotulo}, ${item.contador} ${item.contador === 1 ? 'nova' : 'novas'}`
+    : undefined;
 
   return (
     <Link

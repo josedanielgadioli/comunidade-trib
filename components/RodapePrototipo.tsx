@@ -8,8 +8,11 @@ export function RodapePrototipo() {
   const comBarra = temBarraNavegacao(usePathname());
   return (
     <footer
-      style={{ bottom: comBarra ? 'var(--altura-barra-nav)' : 'var(--area-segura)' }}
-      className="fixed inset-x-0 z-20 mx-auto flex h-6 max-w-coluna items-center justify-center whitespace-nowrap bg-areia px-2 text-[11px] leading-4 text-tinta-2"
+      style={{
+        bottom: comBarra ? 'var(--altura-barra-nav)' : 'var(--area-segura)',
+        height: 'var(--altura-rodape)',
+      }}
+      className="fixed inset-x-0 z-20 mx-auto flex max-w-coluna items-center justify-center bg-areia px-4 text-center text-[11px] leading-[14px] text-tinta-2"
     >
       Protótipo para testes — Comunidade Trib · Imagens geradas por IA
     </footer>
