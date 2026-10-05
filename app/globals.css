@@ -6,7 +6,8 @@
 :root {
   --area-segura: env(safe-area-inset-bottom, 0px);
   --altura-barra-nav: calc(64px + var(--area-segura));
-  --altura-rodape: 24px;
+  /* O rodapé do protótipo cabe em 1 linha só em colunas largas; reservamos espaço para 2. */
+  --altura-rodape: 32px;
 }
 
 /* A partir de 1024 px o rodapé sai da moldura (vai para o painel). */
@@ -22,12 +23,6 @@
   scroll-padding-bottom: 136px;
 }
 
-/* Em telas estreitas, o rodapé do protótipo quebra em 2 linhas. */
-@media (max-width: 389px) {
-  :root {
-    --altura-rodape: 32px;
-  }
-}
 
 html {
   -webkit-text-size-adjust: 100%;
