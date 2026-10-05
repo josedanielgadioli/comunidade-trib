@@ -2,9 +2,10 @@
 
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
-/** Cabeçalho das telas internas: voltar + título. */
-export function CabecalhoVoltar({ titulo, voltarPara }: { titulo: string; voltarPara: string }) {
+/** Cabeçalho das telas internas: voltar + título, com uma ação opcional à direita. */
+export function CabecalhoVoltar({ titulo, voltarPara, acao }: { titulo: string; voltarPara: string; acao?: ReactNode }) {
   return (
     <header className="flex items-center gap-2 pt-4">
       <Link
@@ -14,7 +15,8 @@ export function CabecalhoVoltar({ titulo, voltarPara }: { titulo: string; voltar
       >
         <ArrowLeft size={24} strokeWidth={1.75} aria-hidden />
       </Link>
-      <h1 className="text-tela text-tinta">{titulo}</h1>
+      <h1 className="flex-1 text-tela text-tinta">{titulo}</h1>
+      {acao}
     </header>
   );
 }

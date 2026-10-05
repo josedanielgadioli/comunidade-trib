@@ -9,15 +9,21 @@ export function iniciais(nome: string): string {
   return (primeira + ultima).toUpperCase();
 }
 
-/** Círculo de 28 px com as iniciais. Nunca foto de pessoa. */
-export function Avatar({ nome }: { nome: string }) {
+const tamanhos = {
+  // 28 px: listas e cartões. 40 px: notificações.
+  pequeno: 'h-7 w-7 text-selo',
+  grande: 'h-10 w-10 text-aux font-semibold',
+} as const;
+
+/** Círculo com as iniciais sobre rosa-claro. Nunca foto de pessoa. */
+export function Avatar({ nome, tamanho = 'pequeno' }: { nome: string; tamanho?: keyof typeof tamanhos }) {
   const texto = iniciais(nome);
   return (
     <span
       aria-hidden
-      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-rosa-claro text-selo text-tinta"
+      className={`inline-flex shrink-0 items-center justify-center rounded-full bg-rosa-claro text-tinta ${tamanhos[tamanho]}`}
     >
-      {texto || <UserRound size={16} strokeWidth={1.75} />}
+      {texto || <UserRound size={tamanho === 'grande' ? 20 : 16} strokeWidth={1.75} />}
     </span>
   );
 }

@@ -196,32 +196,39 @@ export const comentariosExemplo: Comentario[] = [
   },
 ];
 
+/** Horários relativos ao momento em que a página abre, para a demo sempre parecer recente. */
+const atras = (minutos: number) => new Date(Date.now() - minutos * 60_000).toISOString();
+
 export const notificacoesExemplo: Notificacao[] = [
   {
     id: 'n-resposta',
     tipo: 'resposta',
     texto: 'Viajante Rui respondeu sua pergunta',
+    pessoa: 'Viajante Rui',
     roteiroId: 'serra-do-rio-do-rastro',
-    criadoEm: '2026-10-04T15:20:00.000Z',
+    criadoEm: atras(2 * 60),
+    lida: false,
     exemplo: true,
   },
   {
     id: 'n-relato-ajudou',
     tipo: 'relato-ajudou',
     texto: 'Seu relato ajudou viajantes',
+    pessoa: null,
     roteiroId: 'estrada-real-ouro-preto-tiradentes',
-    criadoEm: '2026-10-03T09:00:00.000Z',
+    criadoEm: atras(26 * 60),
+    lida: false,
     exemplo: true,
   },
   {
     id: 'n-nova-pergunta',
     tipo: 'nova-pergunta',
     texto: 'Nova pergunta sobre um destino onde você esteve',
+    pessoa: null,
     roteiroId: 'aparecida',
-    criadoEm: '2026-10-02T18:45:00.000Z',
+    criadoEm: atras(3 * 24 * 60),
+    lida: true,
     exemplo: true,
   },
 ];
 
-/** Contador do sino: fixo e simulado neste protótipo. */
-export const NOTIFICACOES_NAO_LIDAS = 3;

@@ -32,6 +32,7 @@ Todos estão na tabela acima. Nenhum par novo foi criado.
 - Texto `tinta`: sobre `branco`, `areia` ou `rosa-claro`. Inclui o texto "imagem ilustrativa" do placeholder, cujo gradiente vai de `rosa-claro` a `areia`.
 - Texto `tinta`: sobre `pergunta-fundo` (14,86:1 ✓), no cartão de pergunta.
 - Texto `tinta-2`: sobre `branco`, `areia` ou `pergunta-fundo` (7,01:1 ✓).
+- Texto `tinta` e `tinta-2` sobre `dica-fundo` (14,9:1 e 7,1:1 ✓), na notificação não lida.
 - Texto `bordo`: sobre `branco`, `areia` ou `dica-fundo`.
 - Selos: cada par fundo/texto da tabela; o selo de tribo usa `tinta` sobre `branco`.
 - Selos sobre ilustração: fundo `branco` a 92% de opacidade, com o mesmo texto de antes: `curadoria-texto` sobre branco (5,59:1 ✓) e `tinta` sobre branco (16,52:1 ✓).
@@ -80,7 +81,7 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | `text-corpo` | 16 / 24 px (1,5) | Corpo |
 | `text-aux` | 14 / 20 px | Texto auxiliar |
 | `text-selo` | 12 / 16 px, 600 | **Só** selos e o contador do sino |
-| `text-[12px]` | 12 / 16 px | Exceção: rótulos da barra de navegação (600 no item ativo) e destino no cartão de pergunta |
+| `text-[12px]` | 12 / 16 px | Exceção: rótulos da barra de navegação (600 no item ativo) destino no cartão de pergunta e destino/tempo nas notificações |
 | `text-[11px]` | 11 / 16 px | Exceção: só o rodapé "Protótipo para testes", em `tinta-2` sobre areia (6,26:1) |
 
 ## Espaçamento
@@ -112,6 +113,7 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Cartão de roteiro | `components/CartaoRoteiro.tsx` | Ilustração no topo com selos sobre ela, selo "Exemplo" no corpo, título 16/600, "3 dias · Tribo" em 14 px `tinta-2` e rodapé com comentários e data. |
 | Cartão de pergunta | `components/CartaoPergunta.tsx` | 280 px, fundo `pergunta-fundo`, ícone em `pergunta-texto`, texto em `tinta` (14,86:1) até 3 linhas, destino em 12 px `tinta-2` (7,01:1) e botão secundário "Responder". |
 | Busca | `components/ui/Campo.tsx` (`CampoBusca`) | Pílula de 48 px, lupa à esquerda, rótulo via `aria-label`. |
+| Notificação | `app/notificacoes/page.tsx` | Grupos "Novas" e "Anteriores". Avatar de 40 px (ou ícone do tipo em círculo `rosa-claro`), texto 14 px em `tinta` com o nome em 600, destino e tempo relativo em 12 px `tinta-2` e miniatura de 48 px. Não lida: fundo `dica-fundo` (`tinta` 14,9:1, `tinta-2` 7,1:1) e ponto de 8 px em `rosa`. Tocar marca como lida e diminui o contador da barra. |
 | Logo | `components/LogoSlot.tsx` | Vazio de propósito. O logo oficial entra aqui; nunca redesenhe o logo. |
 
 ## Ícones

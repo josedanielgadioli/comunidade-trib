@@ -60,7 +60,11 @@ export interface Notificacao {
   id: string;
   tipo: TipoNotificacao;
   texto: string;
+  /** Quem gerou a notificação, quando há uma pessoa (aparece em 600 no texto e no avatar). */
+  pessoa: string | null;
   roteiroId: string;
   criadoEm: string;
+  /** Estado inicial: as não lidas formam o grupo "Novas". */
+  lida: boolean;
   exemplo: boolean;
 }

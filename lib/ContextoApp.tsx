@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { criarFonteLocal, type FonteDados } from '@/lib/dados';
+import { notificacoesExemplo } from '@/data/exemplo';
 import type { Comentario } from '@/lib/tipos';
 
 interface ValorContexto {
@@ -14,6 +15,9 @@ interface ValorContexto {
   salvos: ReadonlySet<string>;
   /** Alterna salvo/não salvo e devolve o novo estado. */
   alternarSalvo: (roteiroId: string) => boolean;
+  /** Notificações já lidas nesta sessão. */
+  lidas: ReadonlySet<string>;
+  marcarLidas: (ids: string[]) => void;
 }
 
 const ContextoApp = createContext<ValorContexto | null>(null);
@@ -50,9 +54,14 @@ export function ProvedorApp({ children }: { children: React.ReactNode }) {
     return salvo;
   }, []);
 
+  const [lidas, setLidas] = useState<ReadonlySet<string>>(
+    () => new Set(notificacoesExemplo.filter((n) => n.lida).map((n) => n.id)),
+  );
+  const marcarLidas = useCallback((ids: string[]) => setLidas((atual) => new Set([...atual, ...ids])), []);
+
   const valor = useMemo(
-    () => ({ nome, definirNome, fonte, versao, salvos, alternarSalvo }),
-    [nome, definirNome, fonte, versao, salvos, alternarSalvo],
+    () => ({ nome, definirNome, fonte, versao, salvos, alternarSalvo, lidas, marcarLidas }),
+    [nome, definirNome, fonte, versao, salvos, alternarSalvo, lidas, marcarLidas],
   );
 
   return <ContextoApp.Provider value={valor}>{children}</ContextoApp.Provider>;

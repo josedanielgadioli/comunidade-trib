@@ -4,7 +4,7 @@ import { Bell, CircleUserRound, Compass, House, Plus, type LucideIcon } from 'lu
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
-import { NOTIFICACOES_NAO_LIDAS } from '@/data/exemplo';
+import { useApp, useConsulta } from '@/lib/ContextoApp';
 
 /** A barra aparece em todas as telas menos Boas-vindas (T1) e Contribuir (T4). */
 export function temBarraNavegacao(caminho: string | null): boolean {
@@ -26,14 +26,14 @@ const itensEsquerda: Item[] = [
   { tipo: 'em-breve', rotulo: 'Explorar', Icone: Compass },
 ];
 
-const itensDireita: Item[] = [
+const itensDireita = (naoLidas: number): Item[] => [
   {
     tipo: 'link',
     rotulo: 'Notificações',
     Icone: Bell,
     href: '/notificacoes',
     ativo: (c) => c.startsWith('/notificacoes'),
-    contador: NOTIFICACOES_NAO_LIDAS,
+    contador: naoLidas,
   },
   { tipo: 'em-breve', rotulo: 'Perfil', Icone: CircleUserRound },
 ];
@@ -91,6 +91,9 @@ function ItemBarra({ item, caminho }: { item: Item; caminho: string }) {
 
 export function BarraNavegacao() {
   const caminho = usePathname();
+  const { lidas } = useApp();
+  const notificacoes = useConsulta((f) => f.listarNotificacoes(), []) ?? [];
+  const naoLidas = notificacoes.filter((n) => !lidas.has(n.id)).length;
   if (!temBarraNavegacao(caminho)) return null;
 
   // Dentro de um roteiro, o "+" já abre a contribuição ligada a ele.
@@ -117,7 +120,7 @@ export function BarraNavegacao() {
             <Plus size={24} strokeWidth={1.75} aria-hidden />
           </Link>
         </li>
-        {itensDireita.map((item) => (
+        {itensDireita(naoLidas).map((item) => (
           <li key={item.rotulo} className="flex justify-center">
             <ItemBarra item={item} caminho={caminho} />
           </li>
