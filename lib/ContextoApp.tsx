@@ -10,6 +10,10 @@ interface ValorContexto {
   fonte: FonteDados;
   /** Muda a cada publicação, para as telas buscarem os dados de novo. */
   versao: number;
+  /** Roteiros salvos nesta sessão (somem ao recarregar). */
+  salvos: ReadonlySet<string>;
+  /** Alterna salvo/não salvo e devolve o novo estado. */
+  alternarSalvo: (roteiroId: string) => boolean;
 }
 
 const ContextoApp = createContext<ValorContexto | null>(null);
@@ -34,7 +38,22 @@ export function ProvedorApp({ children }: { children: React.ReactNode }) {
 
   const definirNome = useCallback((valor: string) => setNome(valor.trim()), []);
 
-  const valor = useMemo(() => ({ nome, definirNome, fonte, versao }), [nome, definirNome, fonte, versao]);
+  const [salvos, setSalvos] = useState<ReadonlySet<string>>(new Set());
+  const salvosRef = useRef(salvos);
+  const alternarSalvo = useCallback((roteiroId: string) => {
+    const proximo = new Set(salvosRef.current);
+    const salvo = !proximo.has(roteiroId);
+    if (salvo) proximo.add(roteiroId);
+    else proximo.delete(roteiroId);
+    salvosRef.current = proximo;
+    setSalvos(proximo);
+    return salvo;
+  }, []);
+
+  const valor = useMemo(
+    () => ({ nome, definirNome, fonte, versao, salvos, alternarSalvo }),
+    [nome, definirNome, fonte, versao, salvos, alternarSalvo],
+  );
 
   return <ContextoApp.Provider value={valor}>{children}</ContextoApp.Provider>;
 }

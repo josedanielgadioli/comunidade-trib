@@ -1,9 +1,10 @@
 'use client';
 
-import { ArrowLeft, Bookmark, Share2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
+import { BotaoCompartilhar, BotaoSalvar, classeBotaoSobreFoto } from '@/components/BotoesRoteiro';
 import { Foto, SIZES_COLUNA } from '@/components/Foto';
 import { ItemComentario } from '@/components/ItemComentario';
 import { BotaoLink } from '@/components/ui/Botao';
@@ -83,8 +84,6 @@ function TelaRoteiro() {
   }));
 
   const emBreve = () => mostrarToast('Disponível no MVP');
-  const botaoSobreImagem =
-    'flex h-11 w-11 items-center justify-center rounded-full bg-branco text-tinta shadow-leve active:bg-dica-fundo';
 
   return (
     <main>
@@ -100,17 +99,13 @@ function TelaRoteiro() {
         <Link
           href="/comunidade"
           aria-label="Voltar"
-          className={`absolute left-4 top-4 ${botaoSobreImagem}`}
+          className={`absolute left-4 top-4 ${classeBotaoSobreFoto}`}
         >
           <ArrowLeft size={24} strokeWidth={1.75} aria-hidden />
         </Link>
         <div className="absolute right-4 top-4 flex gap-2">
-          <button type="button" aria-label="Compartilhar" onClick={emBreve} className={botaoSobreImagem}>
-            <Share2 size={24} strokeWidth={1.75} aria-hidden />
-          </button>
-          <button type="button" aria-label="Salvar" onClick={emBreve} className={botaoSobreImagem}>
-            <Bookmark size={24} strokeWidth={1.75} aria-hidden />
-          </button>
+          <BotaoCompartilhar roteiroId={roteiro.id} destino={roteiro.destino} />
+          <BotaoSalvar roteiroId={roteiro.id} />
         </div>
       </div>
 
