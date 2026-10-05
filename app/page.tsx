@@ -37,12 +37,12 @@ export default function BoasVindas() {
   }
 
   return (
-    <main className="pb-36">
-      <div className="h-56">
+    <main className="pb-[calc(232px+var(--area-segura))]">
+      <div className="h-40">
         <Ilustracao cena="boas-vindas" />
       </div>
 
-      <form onSubmit={entrar} noValidate className="flex flex-col gap-6 px-4 pt-6">
+      <form onSubmit={entrar} noValidate className="flex flex-col gap-6 px-4 pt-4">
         <div className="flex items-center gap-2">
           <LogoSlot />
           <p className="text-corpo font-semibold text-bordo">Comunidade Trib</p>
@@ -73,22 +73,32 @@ export default function BoasVindas() {
           </ul>
         </Cartao>
 
-        <CampoTexto
-          id="primeiro-nome"
-          rotulo="Seu primeiro nome"
-          autoComplete="given-name"
-          required
-          aria-required
-          value={valor}
-          erro={erro}
-          onChange={(e) => {
-            setValor(e.target.value);
-            if (erro) setErro('');
-          }}
-        />
-
+        {/* Campo obrigatório e botão ficam juntos no bloco fixo: sempre visíveis, sem rolar. */}
         <BarraAcao>
-          <Botao type="submit">Ver roteiros</Botao>
+          <div className="flex flex-col gap-3">
+            <CampoTexto
+              id="primeiro-nome"
+              rotulo="Seu primeiro nome"
+              autoComplete="given-name"
+              enterKeyHint="go"
+              required
+              aria-required
+              value={valor}
+              erro={erro}
+              onFocus={(e) => {
+                const campo = e.currentTarget;
+                // Reforço para teclados que cobrem a tela: mantém o campo à vista.
+                setTimeout(() => campo.scrollIntoView({ block: 'nearest' }), 300);
+              }}
+              onChange={(e) => {
+                setValor(e.target.value);
+                if (erro) setErro('');
+              }}
+            />
+            <Botao type="submit" aparenciaDesabilitada={!valor.trim()}>
+              Ver roteiros
+            </Botao>
+          </div>
         </BarraAcao>
       </form>
     </main>

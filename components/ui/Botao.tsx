@@ -30,18 +30,29 @@ interface PropsComuns {
   variante?: Variante;
   tamanho?: 'normal' | 'compacto';
   desabilitado?: boolean;
+  /** Parece desabilitado (40% + aria-disabled), mas ainda recebe o toque, para explicar o que falta. */
+  aparenciaDesabilitada?: boolean;
   className?: string;
   children: ReactNode;
 }
 
 type PropsBotao = PropsComuns & Omit<ComponentProps<'button'>, 'className' | 'disabled'>;
 
-export function Botao({ variante = 'principal', tamanho = 'normal', desabilitado: off, className = '', children, onClick, ...resto }: PropsBotao) {
+export function Botao({
+  variante = 'principal',
+  tamanho = 'normal',
+  desabilitado: off,
+  aparenciaDesabilitada,
+  className = '',
+  children,
+  onClick,
+  ...resto
+}: PropsBotao) {
   return (
     <button
       type="button"
       {...resto}
-      aria-disabled={off || undefined}
+      aria-disabled={off || aparenciaDesabilitada || undefined}
       onClick={(e) => {
         if (off) {
           e.preventDefault();
@@ -49,7 +60,9 @@ export function Botao({ variante = 'principal', tamanho = 'normal', desabilitado
         }
         onClick?.(e);
       }}
-      className={`${base} ${variantes[variante]} ${tamanhos[tamanho][variante]} ${off ? desabilitado : ''} ${className}`}
+      className={`${base} ${variantes[variante]} ${tamanhos[tamanho][variante]} ${off ? desabilitado : ''} ${
+        aparenciaDesabilitada && !off ? 'opacity-40' : ''
+      } ${className}`}
     >
       {children}
     </button>
@@ -58,13 +71,20 @@ export function Botao({ variante = 'principal', tamanho = 'normal', desabilitado
 
 type PropsLink = PropsComuns & { href: string } & Omit<ComponentProps<typeof Link>, 'className' | 'href'>;
 
-export function BotaoLink({ variante = 'principal', tamanho = 'normal', desabilitado: off, className = '', children, href, ...resto }: PropsLink) {
+export function BotaoLink({
+  variante = 'principal',
+  tamanho = 'normal',
+  desabilitado: off,
+  aparenciaDesabilitada,
+  className = '', children, href, ...resto }: PropsLink) {
   return (
     <Link
       href={href}
       {...resto}
-      aria-disabled={off || undefined}
-      className={`${base} ${variantes[variante]} ${tamanhos[tamanho][variante]} ${off ? desabilitado : ''} ${className}`}
+      aria-disabled={off || aparenciaDesabilitada || undefined}
+      className={`${base} ${variantes[variante]} ${tamanhos[tamanho][variante]} ${off ? desabilitado : ''} ${
+        aparenciaDesabilitada && !off ? 'opacity-40' : ''
+      } ${className}`}
     >
       {children}
     </Link>
