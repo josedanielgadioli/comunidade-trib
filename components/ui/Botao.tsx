@@ -11,17 +11,24 @@ const base =
 const variantes: Record<Variante, string> = {
   // Um único botão principal por tela, largura total.
   principal:
-    'h-12 w-full rounded-campo bg-rosa-acao px-4 text-corpo text-branco hover:bg-rosa-acao-press active:bg-rosa-acao-press',
+    'h-12 w-full rounded-campo bg-rosa-acao text-branco hover:bg-rosa-acao-press active:bg-rosa-acao-press',
   secundario:
-    'min-h-11 rounded-campo border-1.5 border-bordo bg-branco px-4 text-corpo text-bordo hover:bg-dica-fundo active:bg-dica-fundo',
+    'min-h-11 rounded-campo border-1.5 border-bordo bg-branco text-bordo hover:bg-dica-fundo active:bg-dica-fundo',
   texto:
-    'min-h-11 min-w-11 rounded-campo px-2 text-corpo text-bordo underline-offset-4 hover:underline focus-visible:underline',
+    'min-h-11 min-w-11 rounded-campo text-bordo underline-offset-4 hover:underline focus-visible:underline',
 };
+
+// Tamanho separado da variante: classes de Tailwind conflitantes não se sobrescrevem pela ordem.
+const tamanhos = {
+  normal: { principal: 'px-4 text-corpo', secundario: 'px-4 text-corpo', texto: 'px-2 text-corpo' },
+  compacto: { principal: 'px-4 text-corpo', secundario: 'px-3 text-aux', texto: 'px-2 text-aux' },
+} as const;
 
 const desabilitado = 'opacity-40 cursor-not-allowed pointer-events-none';
 
 interface PropsComuns {
   variante?: Variante;
+  tamanho?: 'normal' | 'compacto';
   desabilitado?: boolean;
   className?: string;
   children: ReactNode;
@@ -29,7 +36,7 @@ interface PropsComuns {
 
 type PropsBotao = PropsComuns & Omit<ComponentProps<'button'>, 'className' | 'disabled'>;
 
-export function Botao({ variante = 'principal', desabilitado: off, className = '', children, onClick, ...resto }: PropsBotao) {
+export function Botao({ variante = 'principal', tamanho = 'normal', desabilitado: off, className = '', children, onClick, ...resto }: PropsBotao) {
   return (
     <button
       type="button"
@@ -42,7 +49,7 @@ export function Botao({ variante = 'principal', desabilitado: off, className = '
         }
         onClick?.(e);
       }}
-      className={`${base} ${variantes[variante]} ${off ? desabilitado : ''} ${className}`}
+      className={`${base} ${variantes[variante]} ${tamanhos[tamanho][variante]} ${off ? desabilitado : ''} ${className}`}
     >
       {children}
     </button>
@@ -51,13 +58,13 @@ export function Botao({ variante = 'principal', desabilitado: off, className = '
 
 type PropsLink = PropsComuns & { href: string } & Omit<ComponentProps<typeof Link>, 'className' | 'href'>;
 
-export function BotaoLink({ variante = 'principal', desabilitado: off, className = '', children, href, ...resto }: PropsLink) {
+export function BotaoLink({ variante = 'principal', tamanho = 'normal', desabilitado: off, className = '', children, href, ...resto }: PropsLink) {
   return (
     <Link
       href={href}
       {...resto}
       aria-disabled={off || undefined}
-      className={`${base} ${variantes[variante]} ${off ? desabilitado : ''} ${className}`}
+      className={`${base} ${variantes[variante]} ${tamanhos[tamanho][variante]} ${off ? desabilitado : ''} ${className}`}
     >
       {children}
     </Link>

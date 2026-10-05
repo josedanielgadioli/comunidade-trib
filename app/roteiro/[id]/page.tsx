@@ -1,0 +1,184 @@
+'use client';
+
+import { ArrowLeft, Bookmark, PencilLine, Plus, Share2 } from 'lucide-react';
+import Link from 'next/link';
+import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+import { ImagemPlaceholder } from '@/components/ImagemPlaceholder';
+import { ItemComentario } from '@/components/ItemComentario';
+import { Botao, BotaoLink } from '@/components/ui/Botao';
+import { Cartao } from '@/components/ui/Cartao';
+import { Chips } from '@/components/ui/Chips';
+import { EstadoVazio } from '@/components/ui/EstadoVazio';
+import { Selo, SeloTribo } from '@/components/ui/Selo';
+import { useToast } from '@/components/ui/Toast';
+import { useConsulta } from '@/lib/ContextoApp';
+import { maisAntigoPrimeiro, maisNovoPrimeiro, semResposta } from '@/lib/comentarios';
+import { formatarData, plural } from '@/lib/formatar';
+import type { TipoComentario } from '@/lib/tipos';
+
+type Filtro = 'todos' | TipoComentario;
+
+const filtros: { valor: Filtro; rotulo: string }[] = [
+  { valor: 'todos', rotulo: 'Todos' },
+  { valor: 'pergunta', rotulo: 'Perguntas' },
+  { valor: 'dica', rotulo: 'Dicas' },
+  { valor: 'relato', rotulo: 'Relatos' },
+];
+
+function TelaRoteiro() {
+  const { id } = useParams<{ id: string }>();
+  const params = useSearchParams();
+  const novoId = params.get('novo');
+  const responderId = params.get('responder');
+  const mostrarToast = useToast();
+
+  // undefined = carregando; null = não encontrado.
+  const roteiro = useConsulta((f) => f.buscarRoteiro(id), [id]);
+  const comentarios = useConsulta((f) => f.listarComentarios(id), [id]);
+
+  const [filtro, setFiltro] = useState<Filtro>('todos');
+  const [respondendo, setRespondendo] = useState<string | null>(responderId);
+
+  // Vindo de "Responder" ou de uma publicação: leva a pessoa até o comentário.
+  const alvo = responderId ?? novoId;
+  useEffect(() => {
+    if (!alvo || !comentarios) return;
+    const el = document.getElementById(`comentario-${alvo}`);
+    el?.scrollIntoView({ block: 'start' });
+  }, [alvo, comentarios]);
+
+  if (roteiro === null) {
+    return (
+      <main className="flex flex-col gap-4 px-4 pt-8">
+        <h1 className="text-tela text-tinta">Não encontramos esse roteiro</h1>
+        <BotaoLink variante="texto" href="/comunidade" className="self-start">
+          Ver roteiros
+        </BotaoLink>
+      </main>
+    );
+  }
+  if (!roteiro || !comentarios) return <main className="min-h-screen" aria-busy="true" />;
+
+  const respostasDe = (paiId: string) => comentarios.filter((c) => c.respostaA === paiId).sort(maisAntigoPrimeiro);
+
+  // Ordem: o que acabou de ser publicado, perguntas sem resposta, depois o resto (mais novos primeiro).
+  const principais = comentarios
+    .filter((c) => c.respostaA === null && (filtro === 'todos' || c.tipo === filtro))
+    .sort((a, b) => {
+      if (a.id === novoId) return -1;
+      if (b.id === novoId) return 1;
+      const sa = semResposta(a, comentarios) ? 0 : 1;
+      const sb = semResposta(b, comentarios) ? 0 : 1;
+      return sa - sb || maisNovoPrimeiro(a, b);
+    });
+
+  const emBreve = () => mostrarToast('Disponível no MVP');
+
+  return (
+    <main className="pb-24">
+      <div className="relative">
+        <ImagemPlaceholder tribo={roteiro.tribo} altura="h-48" />
+        <Link
+          href="/comunidade"
+          aria-label="Voltar"
+          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-borda bg-branco text-tinta"
+        >
+          <ArrowLeft size={24} strokeWidth={1.75} aria-hidden />
+        </Link>
+      </div>
+
+      <div className="flex flex-col gap-6 px-4 pt-4">
+        <header className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-2">
+            {roteiro.curadoria && <Selo variante="curadoria" />}
+            <SeloTribo tribo={roteiro.tribo} />
+            {roteiro.exemplo && <Selo variante="exemplo" />}
+          </div>
+          <h1 className="text-tela text-tinta">{roteiro.destino}</h1>
+          <p className="text-aux text-tinta-2">
+            {plural(roteiro.dias, 'dia', 'dias')} · Atualizado em {formatarData(roteiro.atualizadoEm)}
+          </p>
+        </header>
+
+        <div className="flex flex-wrap gap-2">
+          <Botao variante="secundario" tamanho="compacto" onClick={emBreve}>
+            <PencilLine size={20} strokeWidth={1.75} aria-hidden />
+            Usar e editar
+          </Botao>
+          <Botao variante="secundario" tamanho="compacto" onClick={emBreve}>
+            <Share2 size={20} strokeWidth={1.75} aria-hidden />
+            Compartilhar
+          </Botao>
+          <Botao variante="secundario" tamanho="compacto" onClick={emBreve}>
+            <Bookmark size={20} strokeWidth={1.75} aria-hidden />
+            Salvar
+          </Botao>
+        </div>
+
+        <section aria-labelledby="titulo-dias" className="flex flex-col gap-3">
+          <h2 id="titulo-dias" className="text-secao text-tinta">
+            Dia a dia
+          </h2>
+          <ol className="flex flex-col gap-3">
+            {roteiro.resumoDias.map((d) => (
+              <li key={d.dia}>
+                <Cartao className="flex gap-3 p-4">
+                  <span className="w-1 shrink-0 rounded-full bg-rosa" aria-hidden />
+                  <div className="flex flex-col gap-1">
+                    <h3 className="text-cartao text-tinta">
+                      Dia {d.dia} · {d.titulo}
+                    </h3>
+                    <p className="text-corpo text-tinta">{d.texto}</p>
+                  </div>
+                </Cartao>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section aria-labelledby="titulo-conversa" className="flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-2">
+            <h2 id="titulo-conversa" className="text-secao text-tinta">
+              Conversa dos viajantes
+            </h2>
+            <BotaoLink variante="texto" href={`/contribuir?roteiro=${roteiro.id}`} className="shrink-0">
+              <Plus size={20} strokeWidth={1.75} aria-hidden />
+              Contribuir
+            </BotaoLink>
+          </div>
+
+          <Chips rotulo="Filtrar conversa" opcoes={filtros} valor={filtro} aoMudar={setFiltro} />
+
+          {principais.length ? (
+            <ul className="flex flex-col gap-3">
+              {principais.map((c) => (
+                <li key={c.id}>
+                  <ItemComentario
+                    comentario={c}
+                    respostas={respostasDe(c.id)}
+                    semResposta={semResposta(c, comentarios)}
+                    destacado={c.id === novoId}
+                    respondendo={respondendo === c.id}
+                    aoResponder={() => setRespondendo(c.id)}
+                    aoFecharResposta={() => setRespondendo(null)}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <EstadoVazio />
+          )}
+        </section>
+      </div>
+    </main>
+  );
+}
+
+export default function PaginaRoteiro() {
+  return (
+    <Suspense fallback={<main className="min-h-screen" aria-busy="true" />}>
+      <TelaRoteiro />
+    </Suspense>
+  );
+}
