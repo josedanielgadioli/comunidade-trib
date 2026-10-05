@@ -35,7 +35,8 @@ export function CenaEstradaReal({ className }: { className?: string }) {
           {/* Estrada de terra */}
           <path d="M196 158 C204 158 210 160 214 164 L330 240 H70 L186 164 C188 160 192 158 196 158 Z" fill={cor.terra} />
           <path d="M200 166 L200 176 M200 190 L200 204 M200 220 L200 236" stroke={cor.terraEscura} strokeWidth="2" strokeLinecap="round" />
-          {/* Fusca em silhueta */}
+          {/* Fusca em silhueta, no meio da estrada e acima da área que o cartão da T3 cobre */}
+          <g transform="translate(170 166) scale(0.75) translate(-222 -186)">
           <g fill={cor.tinta}>
             <path d="M226 214 C226 196 240 186 256 186 C272 186 284 196 288 206 L296 208 C300 209 302 212 302 216 L302 220 H222 L222 218 C222 216 224 214 226 214 Z" />
             <circle cx="240" cy="221" r="7" />
@@ -43,6 +44,7 @@ export function CenaEstradaReal({ className }: { className?: string }) {
           </g>
           <path d="M240 192 C246 190 252 190 258 190 L258 202 H234 Z" fill={cor.ceuDia} opacity="0.85" />
           <path d="M262 190 C268 190 274 193 278 202 H262 Z" fill={cor.ceuDia} opacity="0.85" />
+          </g>
           {/* Camada 4: primeiro plano */}
           <path d="M0 210 C40 200 70 214 90 240 H0 Z" fill={cor.matoFrente} />
           <path d="M320 240 C340 214 370 206 400 208 V240 Z" fill={cor.matoFrente} />
