@@ -30,7 +30,8 @@ Todos estão na tabela acima. Nenhum par novo foi criado.
 
 - Texto branco: só sobre `rosa-acao` ou `rosa-acao-press`.
 - Texto `tinta`: sobre `branco`, `areia` ou `rosa-claro`. Inclui o texto "imagem ilustrativa" do placeholder, cujo gradiente vai de `rosa-claro` a `areia`.
-- Texto `tinta-2`: sobre `branco` ou `areia`.
+- Texto `tinta`: sobre `pergunta-fundo` (14,86:1 ✓), no cartão de pergunta.
+- Texto `tinta-2`: sobre `branco`, `areia` ou `pergunta-fundo` (7,01:1 ✓).
 - Texto `bordo`: sobre `branco`, `areia` ou `dica-fundo`.
 - Selos: cada par fundo/texto da tabela; o selo de tribo usa `tinta` sobre `branco`.
 - Selos sobre ilustração: fundo `branco` a 92% de opacidade, com o mesmo texto de antes: `curadoria-texto` sobre branco (5,59:1 ✓) e `tinta` sobre branco (16,52:1 ✓).
@@ -77,7 +78,7 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | `text-corpo` | 16 / 24 px (1,5) | Corpo |
 | `text-aux` | 14 / 20 px | Texto auxiliar |
 | `text-selo` | 12 / 16 px, 600 | **Só** selos e o contador do sino |
-| `text-[12px]` | 12 / 16 px | Exceção: rótulos da barra de navegação (600 no item ativo) |
+| `text-[12px]` | 12 / 16 px | Exceção: rótulos da barra de navegação (600 no item ativo) e destino no cartão de pergunta |
 | `text-[11px]` | 11 / 16 px | Exceção: só o rodapé "Protótipo para testes", em `tinta-2` sobre areia (6,26:1) |
 
 ## Espaçamento
@@ -103,6 +104,11 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Estado vazio | `components/ui/EstadoVazio.tsx` | "Ainda não tem nada por aqui. Que tal começar a conversa?" |
 | Ilustração | `components/ilustracoes/` | Cenas de paisagem em SVG, uma por roteiro (Moto: serra com estrada sinuosa; Religioso: cidade com igreja de duas torres; Fusca: estrada de terra com Fusca e casario) e uma de boas-vindas. Plana, 4 a 6 camadas, céu em gradiente, luz de dia. Cada uma tem `role="img"` e `aria-label` descritivo. Sem pessoas, logos ou textos. O rodapé avisa "Imagens ilustrativas". |
 | Barra de navegação | `components/BarraNavegacao.tsx` | Fixa na base da coluna em todas as telas menos Boas-vindas e Contribuir. Fundo branco, borda superior `borda`, 64 px + `env(safe-area-inset-bottom)`. 5 itens: Início, Explorar (em breve), botão central "+" (56 px, `rosa-acao`, ícone branco, rótulo acessível "Contribuir"), Notificações (com contador) e Perfil (em breve). Ícone 24 px + rótulo 12 px. Ativo: `bordo` 600 com traço de 3 px `rosa` acima do ícone. Inativo: `tinta-2`. Em breve: opacidade de 60%, ponto ao lado do rótulo, `aria-disabled` e toast "Em breve". A opacidade derruba o contraste para 2,91:1, o que a WCAG aceita em componente desabilitado. |
+| Avatar | `components/Avatar.tsx` | Círculo de 28 px com as iniciais (12 px/600, como selo) em `tinta` sobre `rosa-claro` (10,66:1). Sem nome, mostra um ícone de pessoa. Nunca foto. |
+| Fileira horizontal | `components/FileiraHorizontal.tsx` | Rolagem lateral com `scroll-snap`, 12 px entre cartões, encostando na borda direita da tela. Tab percorre os cartões. |
+| Cartão de roteiro | `components/CartaoRoteiro.tsx` | Ilustração no topo com selos sobre ela, selo "Exemplo" no corpo, título 16/600, "3 dias · Tribo" em 14 px `tinta-2` e rodapé com comentários e data. |
+| Cartão de pergunta | `components/CartaoPergunta.tsx` | 280 px, fundo `pergunta-fundo`, ícone em `pergunta-texto`, texto em `tinta` (14,86:1) até 3 linhas, destino em 12 px `tinta-2` (7,01:1) e botão secundário "Responder". |
+| Busca | `components/ui/Campo.tsx` (`CampoBusca`) | Pílula de 48 px, lupa à esquerda, rótulo via `aria-label`. |
 | Logo | `components/LogoSlot.tsx` | Vazio de propósito. O logo oficial entra aqui; nunca redesenhe o logo. |
 
 ## Ícones

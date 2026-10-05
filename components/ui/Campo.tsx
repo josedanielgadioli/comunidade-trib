@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleAlert } from 'lucide-react';
+import { CircleAlert, Search } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 
 const caixa =
@@ -93,5 +93,27 @@ export function CampoSelecao({ id, rotulo, erro, ajuda, className = '', children
         {children}
       </select>
     </MolduraCampo>
+  );
+}
+
+type PropsBusca = Omit<ComponentProps<'input'>, 'type'> & { rotulo: string };
+
+/** Busca em pílula, 48 px, com lupa à esquerda. O rótulo fica só no aria-label. */
+export function CampoBusca({ rotulo, className = '', ...resto }: PropsBusca) {
+  return (
+    <div className="relative">
+      <Search
+        size={20}
+        strokeWidth={1.75}
+        aria-hidden
+        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-tinta-2"
+      />
+      <input
+        type="search"
+        aria-label={rotulo}
+        {...resto}
+        className={`h-12 w-full rounded-full border border-borda bg-branco pl-12 pr-4 text-corpo text-tinta placeholder:text-tinta-2 focus:border-bordo focus:shadow-[inset_0_0_0_1px_#AA0948] focus:outline-none focus-visible:outline-none ${className}`}
+      />
+    </div>
   );
 }

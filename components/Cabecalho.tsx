@@ -2,17 +2,6 @@
 
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { LogoSlot } from '@/components/LogoSlot';
-
-/** Cabeçalho com a marca em texto. As notificações ficam na barra de navegação. */
-export function CabecalhoMarca() {
-  return (
-    <header className="flex items-center gap-2 pt-4">
-      <LogoSlot />
-      <h1 className="text-tela text-tinta">Comunidade Trib</h1>
-    </header>
-  );
-}
 
 /** Cabeçalho das telas internas: voltar + título. */
 export function CabecalhoVoltar({ titulo, voltarPara }: { titulo: string; voltarPara: string }) {
