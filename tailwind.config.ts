@@ -51,8 +51,9 @@ const config: Config = {
       borderWidth: {
         '1.5': '1.5px',
       },
-      backgroundImage: {
-        placeholder: 'linear-gradient(135deg, #FFBFCA 0%, #EDE5DF 100%)',
+      boxShadow: {
+        // Sombra leve em tinta (#2B1A20) a 18%, para botões sobre ilustração.
+        leve: '0 2px 8px rgba(43, 26, 32, 0.18)',
       },
     },
   },

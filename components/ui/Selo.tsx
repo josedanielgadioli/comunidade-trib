@@ -16,10 +16,17 @@ const estilos: Record<Variante, { classe: string; Icone: LucideIcon; texto: stri
 
 const forma = 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-selo';
 
-export function Selo({ variante }: { variante: Variante }) {
+// Sobre uma ilustração: fundo branco a 92%, mesma cor de texto e ícone.
+const textoSobreImagem: Partial<Record<Variante, string>> = {
+  curadoria: 'text-curadoria-texto',
+  exemplo: 'text-exemplo-texto',
+};
+
+export function Selo({ variante, sobreImagem }: { variante: Variante; sobreImagem?: boolean }) {
   const { classe, Icone, texto } = estilos[variante];
+  const cores = sobreImagem ? `bg-branco/[0.92] ${textoSobreImagem[variante] ?? 'text-tinta'}` : classe;
   return (
-    <span className={`${forma} ${classe}`}>
+    <span className={`${forma} ${cores}`}>
       <Icone size={16} strokeWidth={1.75} aria-hidden />
       {texto}
     </span>
@@ -30,9 +37,9 @@ export function SeloTipo({ tipo, resposta }: { tipo: TipoComentario; resposta?: 
   return <Selo variante={resposta ? 'resposta' : tipo} />;
 }
 
-export function SeloTribo({ tribo }: { tribo: Tribo }) {
+export function SeloTribo({ tribo, sobreImagem }: { tribo: Tribo; sobreImagem?: boolean }) {
   return (
-    <span className={`${forma} border border-borda bg-branco text-tinta`}>
+    <span className={`${forma} text-tinta ${sobreImagem ? 'bg-branco/[0.92]' : 'border border-borda bg-branco'}`}>
       <IconeTribo tribo={tribo} size={16} />
       {tribo}
     </span>

@@ -33,10 +33,37 @@ Todos estão na tabela acima. Nenhum par novo foi criado.
 - Texto `tinta-2`: sobre `branco` ou `areia`.
 - Texto `bordo`: sobre `branco`, `areia` ou `dica-fundo`.
 - Selos: cada par fundo/texto da tabela; o selo de tribo usa `tinta` sobre `branco`.
+- Selos sobre ilustração: fundo `branco` a 92% de opacidade, com o mesmo texto de antes: `curadoria-texto` sobre branco (5,59:1 ✓) e `tinta` sobre branco (16,52:1 ✓).
 
 ### Regra de peso da marca
 
 Rosa e areia/branco dominam a composição. Verde e bordô aparecem em detalhes.
+
+## Cores de ilustração (não usar em texto)
+
+Usadas só dentro das cenas de `components/ilustracoes/` (definidas em `components/ilustracoes/cores.ts`). Nunca em texto, fundo de componente ou borda. Além delas, as cenas usam `rosa` (sol), `areia`, `branco` e `tinta` (silhueta do Fusca).
+
+| Nome | Hex | Uso |
+|---|---|---|
+| `ceuDia` | `#CFE8F3` | Céu de dia (topo do gradiente) |
+| `ceuClaro` | `#F6F1EA` | Céu perto do horizonte, de manhã |
+| `ceuTarde` | `#F9CDBB` | Céu de fim de tarde (topo) |
+| `ceuTardeClaro` | `#FDEBDD` | Céu de fim de tarde perto do horizonte |
+| `bruma` | `#C9BCC6` | Serra distante em bruma |
+| `morroLonge` | `#A9CDB4` | Morros ao fundo |
+| `morro` | `#84B793` | Morros no plano médio |
+| `mato` | `#6FA382` | Mato e encostas |
+| `matoFrente` | `#5A9470` | Primeiro plano |
+| `terra` | `#C9A27E` | Estrada de terra |
+| `terraEscura` | `#A9825F` | Marcas na estrada |
+| `telhado` | `#C9785B` | Telhados coloniais |
+| `madeira` | `#8C6A55` | Portas e janelas |
+
+O verde aparece em tons médios de mato, nunca como verde-escuro dominante. A paleta Trib entra nos detalhes: sol `rosa` e estradas/casas em `areia`.
+
+## Sombra
+
+`shadow-leve`: `0 2px 8px` em `tinta` a 18%. Usada só no botão voltar sobre a ilustração da T3. Cartões continuam sem sombra.
 
 ## Tipografia
 
@@ -72,7 +99,7 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Selos | `components/ui/Selo.tsx` | 12 px/600, padding de 4×8 px, cantos de 999 px, sempre ícone + texto. |
 | Toast | `components/ui/Toast.tsx` | Fundo branco, texto `tinta`, região `aria-live="polite"`. |
 | Estado vazio | `components/ui/EstadoVazio.tsx` | "Ainda não tem nada por aqui. Que tal começar a conversa?" |
-| Placeholder de imagem | `components/ImagemPlaceholder.tsx` | Gradiente de `rosa-claro` para `areia`, ícone de linha da tribo (Moto: montanha, Religioso: igreja, Fusca: estrada) e o texto "imagem ilustrativa". |
+| Ilustração | `components/ilustracoes/` | Cenas de paisagem em SVG, uma por roteiro (Moto: serra com estrada sinuosa; Religioso: cidade com igreja de duas torres; Fusca: estrada de terra com Fusca e casario) e uma de boas-vindas. Plana, 4 a 6 camadas, céu em gradiente, luz de dia. Cada uma tem `role="img"` e `aria-label` descritivo. Sem pessoas, logos ou textos. O rodapé avisa "Imagens ilustrativas". |
 | Logo | `components/LogoSlot.tsx` | Vazio de propósito. O logo oficial entra aqui; nunca redesenhe o logo. |
 
 ## Ícones

@@ -4,7 +4,7 @@ import { BookOpen, CircleHelp, Map as Mapa } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import { BarraAcao } from '@/components/BarraAcao';
-import { ImagemPlaceholder } from '@/components/ImagemPlaceholder';
+import { Ilustracao } from '@/components/ilustracoes/Ilustracao';
 import { LogoSlot } from '@/components/LogoSlot';
 import { Botao } from '@/components/ui/Botao';
 import { CampoTexto } from '@/components/ui/Campo';
@@ -38,7 +38,9 @@ export default function BoasVindas() {
 
   return (
     <main className="pb-36">
-      <ImagemPlaceholder altura="h-48" />
+      <div className="h-56">
+        <Ilustracao cena="boas-vindas" />
+      </div>
 
       <form onSubmit={entrar} noValidate className="flex flex-col gap-6 px-4 pt-6">
         <div className="flex items-center gap-2">

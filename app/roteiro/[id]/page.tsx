@@ -4,7 +4,7 @@ import { ArrowLeft, Bookmark, PencilLine, Plus, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
-import { ImagemPlaceholder } from '@/components/ImagemPlaceholder';
+import { Ilustracao } from '@/components/ilustracoes/Ilustracao';
 import { ItemComentario } from '@/components/ItemComentario';
 import { Botao, BotaoLink } from '@/components/ui/Botao';
 import { Cartao } from '@/components/ui/Cartao';
@@ -76,19 +76,20 @@ function TelaRoteiro() {
   const emBreve = () => mostrarToast('Disponível no MVP');
 
   return (
-    <main className="pb-24">
-      <div className="relative">
-        <ImagemPlaceholder tribo={roteiro.tribo} altura="h-48" />
+    <main>
+      <div className="relative h-60">
+        <Ilustracao cena={roteiro.tribo} />
         <Link
           href="/comunidade"
           aria-label="Voltar"
-          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-borda bg-branco text-tinta"
+          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-branco text-tinta shadow-leve"
         >
           <ArrowLeft size={24} strokeWidth={1.75} aria-hidden />
         </Link>
       </div>
 
-      <div className="flex flex-col gap-6 px-4 pt-4">
+      {/* Conteúdo num cartão branco que sobe 24 px sobre a ilustração. */}
+      <div className="relative -mt-6 flex min-h-[60vh] flex-col gap-6 rounded-t-[24px] bg-branco px-4 pb-24 pt-6">
         <header className="flex flex-col gap-2">
           <div className="flex flex-wrap gap-2">
             {roteiro.curadoria && <Selo variante="curadoria" />}
