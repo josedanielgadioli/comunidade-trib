@@ -9,7 +9,7 @@ export function CartaoRoteiro({ roteiro, numComentarios }: { roteiro: Roteiro; n
   return (
     <Link
       href={`/roteiro/${roteiro.id}`}
-      className="flex w-full flex-col overflow-hidden rounded-cartao border border-borda bg-branco active:bg-dica-fundo"
+      className="relative flex w-full flex-col overflow-hidden rounded-cartao border border-borda bg-branco active:bg-dica-fundo"
     >
       <div className="relative h-36 overflow-hidden rounded-t-cartao">
         <Ilustracao cena={roteiro.tribo} />
@@ -29,11 +29,11 @@ export function CartaoRoteiro({ roteiro, numComentarios }: { roteiro: Roteiro; n
           {plural(roteiro.dias, 'dia', 'dias')} · {roteiro.tribo}
         </p>
         <p className="mt-auto flex items-center justify-between gap-2 border-t border-borda pt-3 text-aux text-tinta-2">
-          <span className="inline-flex items-center gap-1">
+          <span className="inline-flex items-center gap-1" aria-label={plural(numComentarios, 'comentário', 'comentários')}>
             <MessageCircle size={20} strokeWidth={1.75} aria-hidden />
-            {plural(numComentarios, 'comentário', 'comentários')}
+            <span aria-hidden>{numComentarios}</span>
           </span>
-          <span>
+          <span className="whitespace-nowrap">
             <span className="sr-only">Atualizado em </span>
             {formatarData(roteiro.atualizadoEm)}
           </span>

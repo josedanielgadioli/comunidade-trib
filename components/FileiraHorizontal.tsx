@@ -19,5 +19,6 @@ export function FileiraHorizontal({ rotulo, children }: { rotulo: string; childr
 }
 
 export function ItemFileira({ largura, children }: { largura: string; children: ReactNode }) {
-  return <li className={`flex shrink-0 snap-start ${largura}`}>{children}</li>;
+  // relative: prende ao item qualquer elemento absoluto (ex.: sr-only), senão ele escapa da rolagem e alarga a página.
+  return <li className={`relative flex shrink-0 snap-start ${largura}`}>{children}</li>;
 }
