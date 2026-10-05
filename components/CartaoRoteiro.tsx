@@ -1,6 +1,6 @@
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Ilustracao } from '@/components/ilustracoes/Ilustracao';
+import { Foto, SIZES_COLUNA } from '@/components/Foto';
 import { Selo, SeloTribo } from '@/components/ui/Selo';
 import { formatarData, plural } from '@/lib/formatar';
 import type { Roteiro } from '@/lib/tipos';
@@ -12,7 +12,7 @@ export function CartaoRoteiro({ roteiro, numComentarios }: { roteiro: Roteiro; n
       className="relative flex w-full flex-col overflow-hidden rounded-cartao border border-borda bg-branco active:bg-dica-fundo"
     >
       <div className="relative h-36 overflow-hidden rounded-t-cartao">
-        <Ilustracao cena={roteiro.tribo} />
+        <Foto src={roteiro.imagem.src} alt={roteiro.imagem.alt} reserva={roteiro.tribo} sizes={SIZES_COLUNA} degrade />
         <div className="absolute left-3 top-3 flex flex-wrap gap-2">
           {roteiro.curadoria && <Selo variante="curadoria" sobreImagem />}
           <SeloTribo tribo={roteiro.tribo} sobreImagem />

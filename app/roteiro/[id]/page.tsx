@@ -4,7 +4,7 @@ import { ArrowLeft, Bookmark, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
-import { Ilustracao } from '@/components/ilustracoes/Ilustracao';
+import { Foto, SIZES_COLUNA } from '@/components/Foto';
 import { ItemComentario } from '@/components/ItemComentario';
 import { BotaoLink } from '@/components/ui/Botao';
 import { Cartao } from '@/components/ui/Cartao';
@@ -18,6 +18,8 @@ import { formatarData, plural } from '@/lib/formatar';
 import type { TipoComentario } from '@/lib/tipos';
 
 type Filtro = 'todos' | TipoComentario;
+
+const ENQUADRAMENTOS = ['left', 'center', 'right'];
 
 const filtros: { valor: Filtro; rotulo: string }[] = [
   { valor: 'todos', rotulo: 'Todos' },
@@ -87,7 +89,14 @@ function TelaRoteiro() {
   return (
     <main>
       <div className="relative h-60">
-        <Ilustracao cena={roteiro.tribo} />
+        <Foto
+          src={roteiro.imagem.src}
+          alt={roteiro.imagem.alt}
+          reserva={roteiro.tribo}
+          sizes={SIZES_COLUNA}
+          degrade
+          prioridade
+        />
         <Link
           href="/comunidade"
           aria-label="Voltar"
@@ -131,10 +140,19 @@ function TelaRoteiro() {
             Dia a dia
           </h2>
           <ol className="flex flex-col gap-3">
-            {roteiro.resumoDias.map((d) => (
+            {roteiro.resumoDias.map((d, i) => (
               <li key={d.dia}>
                 <Cartao className="flex gap-3 p-4">
-                  <span className="w-1 shrink-0 rounded-full bg-rosa" aria-hidden />
+                  {/* Miniatura com um enquadramento diferente da mesma foto em cada dia. */}
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-campo">
+                    <Foto
+                      src={roteiro.imagem.src}
+                      alt=""
+                      reserva={roteiro.tribo}
+                      sizes="64px"
+                      enquadramento={ENQUADRAMENTOS[i % ENQUADRAMENTOS.length]}
+                    />
+                  </div>
                   <div className="flex flex-col gap-1">
                     <h3 className="text-cartao text-tinta">
                       Dia {d.dia} · {d.titulo}

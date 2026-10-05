@@ -1,7 +1,13 @@
-import type { Comentario, Notificacao, Roteiro } from '@/lib/tipos';
+import type { Comentario, Imagem, Notificacao, Roteiro } from '@/lib/tipos';
 
 // Conteúdo de exemplo do protótipo. Nomes de autores são fictícios e genéricos.
 // Tudo aqui exibe o selo "Exemplo" na interface.
+
+// Imagens fictícias, geradas por IA.
+export const imagemBoasVindas: Imagem = {
+  src: '/imagens/boas-vindas.jpg',
+  alt: 'Estrada reta entre campos verdes em direção ao horizonte',
+};
 
 export const roteirosExemplo: Roteiro[] = [
   {
@@ -11,6 +17,7 @@ export const roteirosExemplo: Roteiro[] = [
     tribo: 'Moto',
     curadoria: true,
     atualizadoEm: '2026-09-12',
+    imagem: { src: '/imagens/moto.jpg', alt: 'Estrada de serra com curvas em zigue-zague entre encostas verdes' },
     exemplo: true,
     resumoDias: [
       {
@@ -37,6 +44,7 @@ export const roteirosExemplo: Roteiro[] = [
     tribo: 'Religioso',
     curadoria: true,
     atualizadoEm: '2026-08-28',
+    imagem: { src: '/imagens/religioso.jpg', alt: 'Basílica de tijolos com torre do relógio e uma grande praça à frente' },
     exemplo: true,
     resumoDias: [
       {
@@ -58,6 +66,10 @@ export const roteirosExemplo: Roteiro[] = [
     tribo: 'Fusca',
     curadoria: true,
     atualizadoEm: '2026-09-30',
+    imagem: {
+      src: '/imagens/fusca.jpg',
+      alt: 'Fusca azul numa estrada de terra, com uma cidade pequena entre morros ao fundo',
+    },
     exemplo: true,
     resumoDias: [
       {

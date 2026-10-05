@@ -62,9 +62,11 @@ Usadas só dentro das cenas de `components/ilustracoes/` (definidas em `componen
 
 O verde aparece em tons médios de mato, nunca como verde-escuro dominante. A paleta Trib entra nos detalhes: sol `rosa` e estradas/casas em `areia`.
 
-## Sombra
+## Sombra e degradê
 
 `shadow-leve`: `0 2px 8px` em `tinta` a 18%. Usada só no botão voltar sobre a ilustração da T3. Cartões continuam sem sombra.
+
+Degradê sobre foto: de `rgba(0,0,0,0.25)` para transparente, na metade de cima da imagem, para selos e botões continuarem legíveis. É a única cor fora da paleta, usada só sobre fotos e nunca em texto.
 
 ## Tipografia
 
@@ -102,7 +104,8 @@ Poppins, carregada via `next/font/google` (pesos 400, 500, 600 e 700).
 | Selos | `components/ui/Selo.tsx` | 12 px/600, padding de 4×8 px, cantos de 999 px, sempre ícone + texto. |
 | Toast | `components/ui/Toast.tsx` | Fundo branco, texto `tinta`, região `aria-live="polite"`. |
 | Estado vazio | `components/ui/EstadoVazio.tsx` | "Ainda não tem nada por aqui. Que tal começar a conversa?" |
-| Ilustração | `components/ilustracoes/` | Cenas de paisagem em SVG, uma por roteiro (Moto: serra com estrada sinuosa; Religioso: cidade com igreja de duas torres; Fusca: estrada de terra com Fusca e casario) e uma de boas-vindas. Plana, 4 a 6 camadas, céu em gradiente, luz de dia. Cada uma tem `role="img"` e `aria-label` descritivo. Sem pessoas, logos ou textos. O rodapé avisa "Imagens ilustrativas". |
+| Foto | `components/Foto.tsx` | Imagens fictícias geradas por IA em `public/imagens/`, com `next/image`, `object-fit: cover` e `alt` descritivo. Nos cartões e no topo da T3, degradê escuro no topo (ver Sombra e degradê). No dia a dia da T3, miniaturas de 64 px com cantos de 12 px e enquadramentos left, center e right. Se o arquivo não carregar, entra a ilustração de reserva. O rodapé avisa "Imagens geradas por IA". |
+| Ilustração (reserva) | `components/ilustracoes/` | Cenas de paisagem em SVG, uma por roteiro (Moto: serra com estrada sinuosa; Religioso: cidade com igreja de duas torres; Fusca: estrada de terra com Fusca e casario) e uma de boas-vindas. Plana, 4 a 6 camadas, céu em gradiente, luz de dia. Cada uma tem `role="img"` e `aria-label` descritivo. Sem pessoas, logos ou textos. O rodapé avisa "Imagens ilustrativas". |
 | Barra de navegação | `components/BarraNavegacao.tsx` | Fixa na base da coluna em todas as telas menos Boas-vindas e Contribuir. Fundo branco, borda superior `borda`, 64 px + `env(safe-area-inset-bottom)`. 5 itens: Início, Explorar (em breve), botão central "+" (56 px, `rosa-acao`, ícone branco, rótulo acessível "Contribuir"), Notificações (com contador) e Perfil (em breve). Ícone 24 px + rótulo 12 px. Ativo: `bordo` 600 com traço de 3 px `rosa` acima do ícone. Inativo: `tinta-2`. Em breve: opacidade de 60%, ponto ao lado do rótulo, `aria-disabled` e toast "Em breve". A opacidade derruba o contraste para 2,91:1, o que a WCAG aceita em componente desabilitado. |
 | Avatar | `components/Avatar.tsx` | Círculo de 28 px com as iniciais (12 px/600, como selo) em `tinta` sobre `rosa-claro` (10,66:1). Sem nome, mostra um ícone de pessoa. Nunca foto. |
 | Fileira horizontal | `components/FileiraHorizontal.tsx` | Rolagem lateral com `scroll-snap`, 12 px entre cartões, encostando na borda direita da tela. Tab percorre os cartões. |

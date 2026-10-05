@@ -19,8 +19,15 @@ export interface Roteiro {
   resumoDias: DiaResumo[];
   /** Data ISO (AAAA-MM-DD). */
   atualizadoEm: string;
+  /** Foto do roteiro (fictícia, gerada por IA), em /public. */
+  imagem: Imagem;
   /** Conteúdo de exemplo do protótipo: exibe o selo "Exemplo". */
   exemplo: boolean;
+}
+
+export interface Imagem {
+  src: string;
+  alt: string;
 }
 
 export interface Comentario {
