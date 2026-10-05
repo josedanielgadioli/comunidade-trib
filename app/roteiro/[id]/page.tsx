@@ -1,12 +1,12 @@
 'use client';
 
-import { ArrowLeft, Bookmark, PencilLine, Plus, Share2 } from 'lucide-react';
+import { ArrowLeft, Bookmark, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { Ilustracao } from '@/components/ilustracoes/Ilustracao';
 import { ItemComentario } from '@/components/ItemComentario';
-import { Botao, BotaoLink } from '@/components/ui/Botao';
+import { BotaoLink } from '@/components/ui/Botao';
 import { Cartao } from '@/components/ui/Cartao';
 import { Chips } from '@/components/ui/Chips';
 import { EstadoVazio } from '@/components/ui/EstadoVazio';
@@ -74,6 +74,8 @@ function TelaRoteiro() {
     });
 
   const emBreve = () => mostrarToast('Disponível no MVP');
+  const botaoSobreImagem =
+    'flex h-11 w-11 items-center justify-center rounded-full bg-branco text-tinta shadow-leve active:bg-dica-fundo';
 
   return (
     <main>
@@ -82,10 +84,18 @@ function TelaRoteiro() {
         <Link
           href="/comunidade"
           aria-label="Voltar"
-          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-branco text-tinta shadow-leve"
+          className={`absolute left-4 top-4 ${botaoSobreImagem}`}
         >
           <ArrowLeft size={24} strokeWidth={1.75} aria-hidden />
         </Link>
+        <div className="absolute right-4 top-4 flex gap-2">
+          <button type="button" aria-label="Compartilhar" onClick={emBreve} className={botaoSobreImagem}>
+            <Share2 size={24} strokeWidth={1.75} aria-hidden />
+          </button>
+          <button type="button" aria-label="Salvar" onClick={emBreve} className={botaoSobreImagem}>
+            <Bookmark size={24} strokeWidth={1.75} aria-hidden />
+          </button>
+        </div>
       </div>
 
       {/* Conteúdo num cartão branco que sobe 24 px sobre a ilustração. */}
@@ -100,22 +110,14 @@ function TelaRoteiro() {
           <p className="text-aux text-tinta-2">
             {plural(roteiro.dias, 'dia', 'dias')} · Atualizado em {formatarData(roteiro.atualizadoEm)}
           </p>
+          <button
+            type="button"
+            onClick={emBreve}
+            className="-my-2 flex min-h-11 self-start items-center text-aux text-tinta-2 underline-offset-4 hover:underline focus-visible:underline"
+          >
+            Usar e editar este roteiro · em breve
+          </button>
         </header>
-
-        <div className="flex flex-wrap gap-2">
-          <Botao variante="secundario" tamanho="compacto" onClick={emBreve}>
-            <PencilLine size={20} strokeWidth={1.75} aria-hidden />
-            Usar e editar
-          </Botao>
-          <Botao variante="secundario" tamanho="compacto" onClick={emBreve}>
-            <Share2 size={20} strokeWidth={1.75} aria-hidden />
-            Compartilhar
-          </Botao>
-          <Botao variante="secundario" tamanho="compacto" onClick={emBreve}>
-            <Bookmark size={20} strokeWidth={1.75} aria-hidden />
-            Salvar
-          </Botao>
-        </div>
 
         <section aria-labelledby="titulo-dias" className="flex flex-col gap-3">
           <h2 id="titulo-dias" className="text-secao text-tinta">
@@ -139,15 +141,12 @@ function TelaRoteiro() {
         </section>
 
         <section aria-labelledby="titulo-conversa" className="flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-2">
-            <h2 id="titulo-conversa" className="text-secao text-tinta">
-              Conversa dos viajantes
-            </h2>
-            <BotaoLink variante="texto" href={`/contribuir?roteiro=${roteiro.id}`} className="shrink-0">
-              <Plus size={20} strokeWidth={1.75} aria-hidden />
-              Contribuir
-            </BotaoLink>
-          </div>
+          <h2 id="titulo-conversa" className="text-secao text-tinta">
+            Conversa dos viajantes
+          </h2>
+          <BotaoLink variante="secundario" href={`/contribuir?roteiro=${roteiro.id}`} className="h-12 w-full">
+            Contribuir neste roteiro
+          </BotaoLink>
 
           <Chips rotulo="Filtrar conversa" opcoes={filtros} valor={filtro} aoMudar={setFiltro} />
 

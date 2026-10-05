@@ -93,6 +93,10 @@ export function BarraNavegacao() {
   const caminho = usePathname();
   if (!temBarraNavegacao(caminho)) return null;
 
+  // Dentro de um roteiro, o "+" já abre a contribuição ligada a ele.
+  const roteiroAtual = caminho.match(/^\/roteiro\/([^/]+)/)?.[1];
+  const hrefContribuir = roteiroAtual ? `/contribuir?roteiro=${roteiroAtual}` : '/contribuir';
+
   return (
     <nav
       aria-label="Navegação principal"
@@ -106,9 +110,9 @@ export function BarraNavegacao() {
         ))}
         <li className="flex justify-center">
           <Link
-            href="/contribuir"
+            href={hrefContribuir}
             aria-label="Contribuir"
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-rosa-acao text-branco hover:bg-rosa-acao-press active:bg-rosa-acao-press"
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-rosa-acao text-branco active:bg-rosa-acao-press"
           >
             <Plus size={24} strokeWidth={1.75} aria-hidden />
           </Link>
