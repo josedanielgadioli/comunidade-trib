@@ -39,6 +39,7 @@ export function Chips<T extends string>({ rotulo, opcoes, valor, aoMudar }: Prop
               key={o.valor}
               type="button"
               aria-pressed={selecionado}
+              aria-label={o.contagem !== undefined ? `${o.rotulo} ${o.contagem}` : undefined}
               onClick={() => aoMudar(o.valor)}
               className="flex min-h-11 shrink-0 items-center rounded-full"
             >
